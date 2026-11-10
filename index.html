@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>NETRA AI | Smart Vision Assistant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">N</span><span>NETRA <b>AI</b><small>SMART VISION ASSISTANT</small></span></a>
+    <span class="status"><i></i> Interface demo</span>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">ASSISTIVE TECHNOLOGY PROJECT</p>
+        <h1>See the world<br><span>through intelligence.</span></h1>
+        <p class="intro">A web control centre for camera-based object recognition, text reading and spoken assistance.</p>
+      </div>
+      <div class="hero-card">
+        <div class="orb">N</div>
+        <strong>NETRA AI</strong>
+        <span>Your vision assistant</span>
+      </div>
+    </section>
+
+    <section class="status-grid" aria-label="System status">
+      <article class="status-card"><span>Camera</span><strong id="cameraStatus">Not connected</strong><small>ESP32-CAM connection will be added</small></article>
+      <article class="status-card"><span>AI server</span><strong id="serverStatus">Not configured</strong><small>Cloud API connection pending</small></article>
+      <article class="status-card"><span>Audio</span><strong id="audioStatus">Browser ready</strong><small>Speech plays on this device</small></article>
+    </section>
+
+    <section class="section-head"><div><p class="eyebrow">CONTROL CENTRE</p><h2>Choose a feature</h2></div></section>
+    <section class="feature-grid">
+      <button class="feature active" data-panel="vision"><span class="icon">◉</span><b>Live Vision</b><small>View camera and detected objects</small><span class="arrow">→</span></button>
+      <button class="feature" data-panel="training"><span class="icon">＋</span><b>AI Training Centre</b><small>Add labelled images and measurements</small><span class="arrow">→</span></button>
+      <button class="feature" data-panel="testing"><span class="icon">✓</span><b>AI Testing Centre</b><small>Evaluate predictions on unseen images</small><span class="arrow">→</span></button>
+      <button class="feature" data-panel="reader"><span class="icon">₹</span><b>Currency & Text Reader</b><small>Plan for note and text recognition</small><span class="arrow">→</span></button>
+      <button class="feature" data-panel="settings"><span class="icon">⚙</span><b>Settings</b><small>Speech and server configuration</small><span class="arrow">→</span></button>
+    </section>
+
+    <section class="workspace" id="workspace">
+      <div class="workspace-head"><div><p class="eyebrow">LIVE VISION</p><h2 id="panelTitle">Camera workspace</h2></div><span class="pill">Prototype UI</span></div>
+      <div id="visionPanel" class="panel">
+        <div class="camera-placeholder"><div class="camera-symbol">▣</div><b>Camera feed will appear here</b><p>First we will connect the ESP32-CAM stream to the cloud backend.</p></div>
+        <div class="actions"><button class="primary" id="speakDemo">Test voice output</button><button class="secondary" id="stopSpeech">Stop audio</button></div>
+        <p class="notice">Safety note: this prototype is not a mobility aid. Do not use its detections or distance estimates to navigate or cross roads. Continue using a white cane or other established assistance.</p>
+      </div>
+      <div id="trainingPanel" class="panel hidden">
+        <p class="panel-copy">Add one image and its ground-truth measurements. Keep separate images for training and testing; never test a model on images it trained on.</p>
+        <form id="datasetForm" class="form-grid">
+          <label class="upload">Object image<input id="imageInput" type="file" accept="image/*" required></label>
+          <label>Object name<input id="objectName" placeholder="e.g. chair" required></label>
+          <label>Measured distance (m)<input id="distance" type="number" min="0.01" step="0.01" required></label>
+          <label>Actual height (cm)<input id="height" type="number" min="0.1" step="0.1"></label>
+          <label>Actual width (cm)<input id="width" type="number" min="0.1" step="0.1"></label>
+          <label>Dataset split<select id="split"><option value="train">Training</option><option value="validation">Validation</option><option value="test">Testing</option></select></label>
+          <button class="primary full" type="submit">Save sample locally in this browser</button>
+        </form>
+        <p id="datasetMessage" class="notice">Starter version stores sample details in this browser only. Cloud database upload will be connected later.</p>
+      </div>
+      <div id="testingPanel" class="panel hidden">
+        <p class="panel-copy">The testing page will compare model predictions with measured ground truth and report distance and size errors.</p>
+        <div class="metric-grid"><div><small>Test images</small><strong>—</strong></div><div><small>Distance MAE</small><strong>—</strong></div><div><small>Size error</small><strong>—</strong></div></div>
+        <p class="notice">No model is connected yet, so this page does not claim accuracy.</p>
+      </div>
+      <div id="readerPanel" class="panel hidden">
+        <p class="panel-copy">Planned tools: Indian currency denomination recognition, OCR text reading, and extraction of manufacturing / expiry dates.</p>
+        <button class="primary" id="speakReader">Hear a sample announcement</button>
+      </div>
+      <div id="settingsPanel" class="panel hidden">
+        <label class="setting">Cloud API address<input id="apiUrl" type="url" placeholder="https://your-api.example.com"></label>
+        <button class="primary" id="saveSettings">Save API address</button>
+        <p id="settingsMessage" class="notice">The website and AI server will be hosted separately.</p>
+      </div>
+    </section>
+    <footer>NETRA AI · Prototype website · Not for safety-critical navigation</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
